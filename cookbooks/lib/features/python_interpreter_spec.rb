@@ -9,7 +9,7 @@ end
 
 describe 'python interpreter' do
   describe command('python --version') do
-    its(:stdout) { should match(/^Python \d+\.\d+\.\d+/) }
+    its(:stderr) { should match(/^Python \d+\.\d+\.\d+/) }
   end
 
   include_examples 'Readability counts', 'python'
