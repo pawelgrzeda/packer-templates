@@ -1,18 +1,24 @@
 # frozen_string_literal: true
 
-%w[
-  python
-  python3
-].each do |py|
-  describe "#{py} interpreter" do
-    describe command("#{py} --version") do
-      stream = :stderr.length > 5 ? :stdout : :stderr
-      its(stream) { should match(/^Python \d+\.\d+\.\d+/) }
-    end
-
-    describe command("#{py} -m this") do
-      its(:stderr) { should be_empty }
-      its(:stdout) { should match(/Readability counts\./) }
-    end
+shared_examples 'Readability counts' do |py|
+  describe command("#{py} -m this") do
+    its(:stderr) { should be_empty }
+    its(:stdout) { should match(/Readability counts\./) }
   end
+end
+
+describe 'python interpreter' do
+  describe command('python --version') do
+    its(:sterr) { should match(/^Python \d+\.\d+\.\d+/) }
+  end
+
+  include_examples 'Readability counts', 'python'
+end
+
+describe 'python3 interpreter' do
+  describe command('python --version') do
+    its(:stdout) { should match(/^Python \d+\.\d+\.\d+/) }
+  end
+
+  include_examples 'Readability counts', 'python3'
 end
