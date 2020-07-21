@@ -85,6 +85,7 @@ include_recipe 'travis_system_info'
 # good or bad
 execute 'rm -f /home/travis/.pearrc'
 
+=begin
 # install erlang
 # add erlan gpgp key
 execute 'add_erlang_gpg_key' do
@@ -122,3 +123,4 @@ end
 
 include_recipe '::postgresql'
 #include_recipe '::couchdb'
+=end
